@@ -61,7 +61,7 @@ jobs:
         with:
           app-name: 'quran-tafsir'
           slot-name: 'Production'
-          package: .
+          package: ./backend
 
           
 
