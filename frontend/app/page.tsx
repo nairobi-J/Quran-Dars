@@ -13,7 +13,7 @@ export default function Home() {
 const handleSubmit = async ({ surah, startAyat, endAyat }:{surah: string, startAyat:string, endAyat:string}) => {
   try {
     // Add full backend URL (replace with your actual backend URL)
-    const res = await axios.post(`${BACKEND_URL}/api/gemini`, { 
+    const res = await axios.post(`http://localhost:5000/api/gemini`, { 
       surah, 
       startAyat, 
       endAyat 
@@ -23,7 +23,7 @@ const handleSubmit = async ({ surah, startAyat, endAyat }:{surah: string, startA
     
     // Also fetch videos
     const videoRes = await axios.get(
-      `${BACKEND_URL}/api/youtube?query=সূরা ${surah}`
+      `http://localhost:5000/api/youtube?query=সূরা ${surah}`
     );
     setVideos(videoRes.data.videos);
     
