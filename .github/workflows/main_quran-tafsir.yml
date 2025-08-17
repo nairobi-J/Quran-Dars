@@ -1,4 +1,4 @@
-name: Build and deploy Node.js backend to Azure Web App
+name: Build and deploy Node.js app to Azure Web App - quran-tafsir
 
 on:
   push:
@@ -13,35 +13,25 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Node.js 20.x
+      - name: Set up Node.js version
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-          cache: 'npm'
-          cache-dependency-path: 'backend/package-lock.json'
 
-      - name: Install dependencies
-        working-directory: ./backend
-        run: npm ci
-
-      - name: Build project
-        working-directory: ./backend
-        run: npm run build --if-present
-
-      - name: Prepare deployment package
-        working-directory: ./backend
+      - name: npm install, build, and test
         run: |
-          rm -rf node_modules/dev
-          npm prune --production
+          cd backend
+          npm install
+          npm run build --if-present
+          npm run test --if-present
 
-      - name: Upload artifact
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: backend-app
-          path: backend
+          name: node-app
+          path: backend  # CHANGED: Only upload the backend directory
 
   deploy:
     runs-on: ubuntu-latest
@@ -51,22 +41,23 @@ jobs:
       contents: read
 
     steps:
-      - name: Download artifact
+      - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: backend-app
-
+          name: node-app
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_C739C9B3847D413A8536434483FC41D0 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_116E44255B4A4BDA9CDA253BB2C3AB8E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_5EF210AAD4694EF09B5E33D3C3628CD2 }}
 
-      - name: Deploy to Azure Web App
+      - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'quran-tafsir'
           slot-name: 'Production'
-          package: .
-
+          package: .  # CHANGED: Now correct because artifact only contains backend
+          runtime-stack: 'NODE|20-lts'
+          startup-command: 'npm start'
