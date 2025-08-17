@@ -64,6 +64,7 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_A360C0C8C39B4E3DBA5D2986C32CDA5F }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E53F4BADBC4D428AACF23668201C0FF6 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_94D97D07708F4B11A75C3921262D72FC }}
+          allow-no-subscriptions: true  # Bypass check temporarily
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
@@ -71,5 +72,6 @@ jobs:
           app-name: 'quran-tafsir'
           slot-name: 'Production'
           package: .
+
 
 
