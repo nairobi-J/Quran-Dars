@@ -6,7 +6,7 @@ require('dotenv').config();
 const app = express();
 
 app.use(cors({
-  origin: 'https://quran-tafsir-apfjbhdba7evh0br.southeastasia-01.azurewebsites.net', // Your Next.js frontend
+  origin: 'https://quran-tafsir-delta.vercel.app/', // Your Next.js frontend
   methods: ['GET', 'POST']
 }));
 
