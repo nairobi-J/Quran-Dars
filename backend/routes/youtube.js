@@ -13,7 +13,7 @@ router.get('/youtube', async (req, res) => {
         const response = await youtube.search.list({
             part:'snippet',
             q: query + ' বাংলা তাফসীর',
-            maxResults: 5,
+            maxResults: 10,
             type: 'video',
             relevanceLanguage: 'bn',
         })
