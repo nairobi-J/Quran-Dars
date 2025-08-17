@@ -10,7 +10,7 @@ export default function Home() {
   const[response, setResponse] = useState('');
   const [videos, setVideos] = useState([]);
 
-const handleSubmit = async ({ surah, startAyat, endAyat }) => {
+const handleSubmit = async ({ surah, startAyat, endAyat }:{surah: string, startAyat:string, endAyat:string}) => {
   try {
     // Add full backend URL (replace with your actual backend URL)
     const res = await axios.post('http://localhost:5000/api/gemini', { 
