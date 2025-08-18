@@ -9,9 +9,11 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 export default function Home() {
   const[response, setResponse] = useState('');
   const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
 const handleSubmit = async ({ surah, startAyat, endAyat }:{surah: string, startAyat:string, endAyat:string}) => {
   try {
+    setIsLoading(true);
     // Add full backend URL (replace with your actual backend URL)
     const res = await axios.post(`${BACKEND_URL}/api/gemini`, { 
       surah, 
@@ -30,7 +32,9 @@ const handleSubmit = async ({ surah, startAyat, endAyat }:{surah: string, startA
   } catch (error) {
     console.error("API Error:", error);
     alert("একটি সমস্যা হয়েছে, আবার চেষ্টা করুন");
-  }
+  }finally {
+      setIsLoading(false);
+    }
 }
 
 
@@ -40,6 +44,11 @@ const handleSubmit = async ({ surah, startAyat, endAyat }:{surah: string, startA
       <div className="max-w-md mx-auto">
          <h1 className="text-3xl font-bold text-center my-6 text-green-700">কুরআনের সহজ ব্যাখ্যা</h1>
           <QuranForm onSubmit={handleSubmit} />
+          {isLoading && (
+            <div className="flex justify-center my-4">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-6 border-green-700"></div>
+            </div>
+          )}
           {response && <ResponseDisplay response={response} videos={videos} /> }
       </div>
     

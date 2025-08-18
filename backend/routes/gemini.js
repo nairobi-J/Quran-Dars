@@ -9,11 +9,11 @@ router.post('/gemini', async(req, res) => {
 
     const prompt = `Provide a detailed explanation in Bengali for Surah ${surah}, Ayat ${startAyat}-${endAyat}.
   Include:
-  1.Relevant other surahs ayat with explanation
+  1.Relevant other surah ayats with each ayat from start ayat to end ayat with explanation
   2. Simple Bengali translation
-  3. Tafsir (explanation) 
-  4. Relevant Hadith with reference
-  5. Practical life lessons for recent time context and Prophet(PBUH) context
+  3. Tafsir (explanation)  for each ayat starting from startAyat to end Ayat
+  4. Relevant Hadith with reference for start ayat to end ayat
+  5. Practical life lessons for recent time context and Prophet(PBUH) context from starting ayat to end ayat
 
   `;
 

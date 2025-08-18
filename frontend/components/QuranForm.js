@@ -6,8 +6,8 @@ export default function QuranForm({ onSubmit }){
     const [endAyat, setEndAyat] = useState('');
 
     return(
-        <div className="p-4 bg-white rounded-lg shadow mt-10 text-black">
-                <h2 className="text-2xl font-bold mb-4 mt-30">কুরআনের তথ্য খুঁজুন</h2>
+        <div className="p-4 bg-white rounded-lg shadow mt-2 text-black">
+                <h2 className="text-2xl font-bold mb-4 mt-6">কুরআনের তথ্য খুঁজুন</h2>
                 <div className="space-y-4">
                     <div className="block text-lg mb-1">সূরার নাম</div>
                     <input

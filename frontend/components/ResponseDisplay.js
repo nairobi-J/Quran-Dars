@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import YouTube from 'react-youtube';
-
+import Markdown from 'markdown-to-jsx';
 export default function ResponseDisplay({ response, videos }) {
   const [playingVideo, setPlayingVideo] = useState(null);
   const [error, setError] = useState(null);
@@ -27,10 +27,12 @@ export default function ResponseDisplay({ response, videos }) {
   };
 
   return (
-    <div className="mt-6 bg-white p-4 rounded-lg shadow text-black">
-      <div className="prose max-w-none text-lg" dangerouslySetInnerHTML={{ __html: response }} />
-      
-      {videos.length > 0 && (
+    <div className=" bg-white p-4 rounded-lg shadow text-black">
+      <div className="prose max-w-none text-lg" 
+      dangerouslySetInnerHTML={{ __html: response }} 
+      /> 
+      <div className="videos">
+          {videos.length > 0 && (
         <div className="mt-8 space-y-6">
           <h3 className="text-xl font-bold mb-4">সম্পর্কিত ভিডিও</h3>
           {error && <div className="text-red-500">{error}</div>}
@@ -84,6 +86,8 @@ export default function ResponseDisplay({ response, videos }) {
           ))}
         </div>
       )}
+      </div>
+      
     </div>
   );
 }
