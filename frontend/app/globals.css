@@ -26,7 +26,7 @@ body {
 }
 @font-face {
   font-family: 'Bangla';
-  src: url('/fonts/SolaimanLipi.ttf') format('truetype');
+  src: url('../public/solaiman.ttf') format('truetype');
 }
 
 body {
